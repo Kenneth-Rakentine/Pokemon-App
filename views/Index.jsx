@@ -13,18 +13,17 @@ class Index extends React.Component {
     };
 
     return (
-          <div style={myStyle}>
-            <h1>See All The Pokemon!</h1>
-            <ul>
-              {this.props.pokemon.map((poke, index) => (
-                <li key={index}>
-                  <a href={`/pokemonroute/${index}`}>
-                    {this.capitalizeFirstLetter(poke.name)}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
+        <div style={myStyle}>
+        <h1>See All The Pokemon!</h1>
+        <ul>
+          {this.props.pokemon.map((pokeName, index) => (
+            <li key={index}>
+               <a href={`/pokemon/${index}`}>{pokeName.name}</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
     )
   }
 }
