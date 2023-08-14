@@ -7,7 +7,7 @@ function Index(props) {
 
   const myStyle = {
     color: "#ffffff",
-    backgroundColor: "#000000",
+    backgroundColor: "#044030"
   }
 
   return (
@@ -23,5 +23,7 @@ function Index(props) {
     </div>
   )
 };
+
+{/* <link rel="stylesheet" type="text/css"   href="/css/style.css"/> */}
 
 export default Index;

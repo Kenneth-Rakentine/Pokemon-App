@@ -15,12 +15,14 @@ function Show(props) {
 
     return (
       <div style={myStyle}>
-        <h1>Gotta Catch 'Em All</h1>
+        <h1 className="catchTitle">Gotta Catch 'Em All</h1>
         <h2>{capitalizeFirstLetter(pokemon.name)}</h2>
         <img src={addJpg} alt={`${pokemon.name} Image`} />
         <a href="/pokemon">back</a>
       </div>
     )
   };
+
+//   <link rel="stylesheet" type="text/css"   href="/css/style.css"/>
   
   export default Show;

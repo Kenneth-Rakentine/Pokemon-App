@@ -3,8 +3,7 @@ const app = express();
 const PORT = 3000;
 require("dotenv").config();
 const mongoose = require("mongoose");
-
-
+// app.use('/css',express.static(__dirname +'/css'));
 
 //Middleware:________________________
 
@@ -55,3 +54,4 @@ app.get('/pokemon', (req,res)=>{
 app.listen(PORT, (req,res)=>{
     console.log(`Server is running on port ${PORT}`)
 });
+
