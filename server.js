@@ -22,6 +22,8 @@ app.use((req, res, next) => {
   next();
 });
 
+const pokemon = require("./models/Pokemon")
+
 mongoose.connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -38,12 +40,12 @@ app.get('/', (req,res)=>{
     res.send('<h1>Welcome to the Pokemon App!</h1>');
 })
 
-app.get('/greeting', (req,res)=>{ 
-    res.send('<h1>Hello</h1>');
+app.get('/pokemon', (req,res)=>{
+    res.send(pokemon)
 })
 
 //SERVER:__________________________
 
 app.listen(PORT, (req,res)=>{
-    console.log('Server is running', PORT);
-})
+    console.log(`Server is running on port ${PORT}`);
+});
