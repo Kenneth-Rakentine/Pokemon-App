@@ -7,7 +7,7 @@ function Show(props) {
   
     const myStyle = {
       color: "#ffffff",
-      backgroundColor: "#000000",
+      backgroundColor: "#a4eb34",
     }
     const id = props.id
     const pokemon = props.pokemon[id];
@@ -23,6 +23,6 @@ function Show(props) {
     )
   };
 
-//   <link rel="stylesheet" type="text/css"   href="/css/style.css"/>
+
   
   export default Show;

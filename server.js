@@ -3,10 +3,9 @@ const app = express();
 const PORT = 3000;
 require("dotenv").config();
 const mongoose = require("mongoose");
-// app.use('/css',express.static(__dirname +'/css'));
+
 
 //Middleware:________________________
-
 
 //sets engine
 app.set('view engine', 'jsx');
