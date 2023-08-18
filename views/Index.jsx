@@ -1,4 +1,5 @@
 import React from "react";
+import pokemon from "../models/Pokemon";
 
 function Index(props) {
   const capitalizeFirstLetter = (string) => {
@@ -13,13 +14,26 @@ function Index(props) {
   return (
     <div style={myStyle}>
       <h1>See All The Pokemon!</h1>
-      <ul>
-        {props.pokemon.map((pokeName, index) => (
+      {/* <ul>
+        {pokemonList.map((pokemon, index) => (
           <li key={index}>
-            <a href={`/pokemon/${index}`}>{capitalizeFirstLetter(pokeName.name)}</a>
+            <a href={`/pokemon/${index}`}>{capitalizeFirstLetter(pokemon.name)}</a>
+          </li>
+        ))}
+      </ul> */}
+
+      <ul>
+        {props.pokemonList.map(pokemon => (
+          <li key={pokemon._id}>
+            <a href={`/pokemon/${pokemon._id}`}>{capitalizeFirstLetter(pokemon.name)}</a>
           </li>
         ))}
       </ul>
+
+      <a href="/pokemon/new">Create New Pokemon</a> 
+
+    
+
     </div>
   )
 };
