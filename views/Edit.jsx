@@ -5,14 +5,18 @@ function Edit(props) {
   return (
     <div>
     <form action={`/pokemon/${pokemon._id}?_method=PUT`} method="POST">
-
+    <input type="hidden" name="_id" value={pokemon._id} />
         Name:{" "}
         <input type="text" name="name" defaultValue={pokemon.name} />
+        <br />
+        Image:{" "} 
+        <input type="text" name="img" /> 
         <br />
         <input type="submit" value="Submit Changes" />
       </form>
 
-      
+      <br></br>
+      <a href="/pokemon">back</a>
     </div>
   );
 }

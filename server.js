@@ -1,6 +1,7 @@
 const express = require('express');   
 const app = express();
 const PORT = 3000;
+const methodOverride = require('method-override');
 // const connectDB = require('./config/db');
 require('dotenv').config();
 const mongoose = require("mongoose");
@@ -18,10 +19,19 @@ app.engine('jsx', require('express-react-views').createEngine());
 
 app.use(express.urlencoded({ extended: false }))
 
+app.use(express.json({extended: false}));
+
 app.use((req, res, next) => {
   console.log("I run for all routes")
   next()
 });
+
+app.use((err, req, res, next) => {
+  console.error(err.stack)
+  res.status(500).send('500 Internal Server Error')
+});
+
+app.use(methodOverride('_method'));
 
 
 
@@ -35,17 +45,11 @@ mongoose.connect(process.env.MONGO_URI, {
   });
 
  
-  app.get('/pokemon/new', (req, res) => {
-    res.render('New');
-  });
-
-  //NEW:________________________
-
 
 //Routes:________________________
 
 app.get('/', (req,res)=>{
-    res.send('<h1>Welcome to the Pokemon App!</h1>')
+    res.send('<h1>Welcome to the Pokemon App!</h1> <br> <p><a href="/pokemon">Pokemon</a></p>')
 });
 
 app.get('/pokemon', async (req, res) => {
@@ -55,51 +59,84 @@ app.get('/pokemon', async (req, res) => {
 
  //Create:________________
 
+ app.get('/pokemon/new', (req, res) => {
+  res.render('New')
+});
+
+//NEW:________________________
+
+
+
 
 app.get('/pokemon/:id', async (req, res) => {
-  const id = req.params.id;
-  const selectedPokemon = await Pokemons.findById(id)
-  res.render('Show', { pokemon: selectedPokemon });
+  try {
+    const id = req.params.id;
+    const selectedPokemon = await Pokemons.findById(id)
+    if (!selectedPokemon) {
+      return res.status(404).render('Error404')
+    }
+    res.render('Show', { pokemon: selectedPokemon })
+  } catch (error) {
+    console.error(error)
+    res.status(500).render('Error500')
+  }
 });
 
 
 //_________________SHOW
 
- app.post('/pokemon', async (req, res) => {
-  const { name, img } = req.body;
-  const newPokemon = new Pokemons({ name, img }); 
-  await newPokemon.save();
-  res.redirect('/pokemon');
+app.post('/pokemon', async (req, res) => {
+  try {
+    const { name, img } = req.body
+    const newPokemon = new Pokemons({ name, img })
+    await newPokemon.save()
+    res.redirect('/pokemon')
+  } catch (error) {
+    console.error(error)
+    res.status(500).render('Error500')
+  }
 });
-
-  // app.post("/pokemon", async (req, res) => {
-  //   const newPokemon = await Pokemons.create(req.body)
-  //   console.log(newPokemon);
-  //   res.redirect("/pokemon");
-  // });
-
 
 //________________Post
   
-app.delete('/pokemon/:id', async(req,res)=>{
-  await Pokemons.findByIdAndRemove(req.params.id)
-  res.redirect('/pokemon')
-})
+app.delete('/pokemon/:id', async (req, res) => {
+  try {
+    const id = req.params.id
+    const deletedPokemon = await Pokemons.findByIdAndRemove(id)
+    if (!deletedPokemon) {
+      return res.status(404).render('Error404'); 
+    }
+    res.redirect('/pokemon')
+  } catch (error) {
+    console.error(error)
+    res.status(500).render('Error500')
+  }
+});
 
 //________________Delete
   
-app.put('/pokemon/:id', async(req, res)=>{
-  const updatedPokemon = await Pokemons.findByIdAndUpdate(req.params.id,req.body)
-      
-  res.redirect(`/pokemon/${req.params.id}`);
-  });
+app.put('/pokemon/:id', async (req, res) => {
+  try {
+    const id = req.params.id
+    console.log('Edit ID:', id)
+    console.log('Edit Body:', req.body)
+    const updatedPokemon = await Pokemons.findByIdAndUpdate(id, req.body, { new: true })
+    if (!updatedPokemon) {
+      return res.status(404).render('Error404'); 
+    }
+    res.redirect(`/pokemon/${id}`)
+  } catch (error) {
+    console.error(error)
+    res.status(500).render('Error500');
+  }
+});
 
 
   app.get('/pokemon/:id/edit', async(req, res)=>{
-const foundDog =  await Pokemons.findById(req.params.id) 
+const foundPokemon =  await Pokemons.findById(req.params.id) 
 console.log("FoundPokemon:", foundPokemon)
-res.render('pokemon/Edit',{
-  dog: foundPokemon
+res.render('Edit',{
+  pokemon: foundPokemon
 })
 })
 
