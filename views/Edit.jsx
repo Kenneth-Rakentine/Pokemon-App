@@ -10,7 +10,7 @@ function Edit(props) {
         <input type="text" name="name" defaultValue={pokemon.name} />
         <br />
         Image:{" "} 
-        <input type="text" name="img" /> 
+        <input type="text" name="img" defaultValue={pokemon.img} /> 
         <br />
         <input type="submit" value="Submit Changes" />
       </form>

@@ -65,7 +65,16 @@ app.get('/pokemon', async (req, res) => {
 
 //NEW:________________________
 
+// app.get('/pokemon/seed', async(req, res)=>{
+//   //Delete existing db data:
+//   await Pokemons.deleteMany({})
+//   pokemonSchema
+//   //Create new list
+//   await Pokemons.create( pokemon )
+//   res.redirect('/pokemon')
+// })
 
+//SEED________________________
 
 
 app.get('/pokemon/:id', async (req, res) => {

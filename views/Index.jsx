@@ -13,7 +13,8 @@ function Index(props) {
 
   return (
     <div style={myStyle}>
-      <h1>See All The Pokemon!</h1>
+      <img src='https://i0.wp.com/imagensemoldes.com.br/wp-content/uploads/2020/04/Pok%C3%A9mon-Logo-PNG.png?fit=1600%2C1200&ssl=1' style={{width: "20%"}}></img>
+      {/* <h1>See All The Pokemon!</h1> */}
       {/* <ul>
         {pokemonList.map((pokemon, index) => (
           <li key={index}>
